@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:furnitureproject/services/notification_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:statusbarz/statusbarz.dart';
 
@@ -19,10 +21,19 @@ import 'ui/widgets/setup_dependencies.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyBRsyczNBN9aezq21E06nzopbgvz6JuLKg",
+      appId: "1:379279063413:android:ce3747464e18e46e19bb3c",
+      messagingSenderId: "379279063413",
+      projectId: "furni-27026",
+    ),
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
 
   if (!kIsWeb) {
     if (Platform.isAndroid) {
@@ -36,6 +47,8 @@ Future<void> main() async {
   }
   setupDependencies();
   runApp( MyApp());
+  await NotificationService().registerPushNotificationHandler();
+
 }
 
 class MyApp extends StatelessWidget {

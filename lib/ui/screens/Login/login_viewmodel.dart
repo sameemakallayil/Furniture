@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:furnitureproject/ui/screens/DashBoard/dashboard_view.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/app.router.dart';
@@ -7,15 +10,12 @@ import '../../../app/utils.dart';
 class LoginViewModel extends BaseViewModel {
  final formKey = GlobalKey<FormState>();
  final textFieldFocusNode = FocusNode();
- bool obscured = false;
+ bool obscured = true;
+
 
  void toggleObscured() {
 
    obscured = !obscured;
-   if (textFieldFocusNode.hasPrimaryFocus)
-    return; // If focus is on text field, dont unfocus
-   textFieldFocusNode.canRequestFocus =
-   false; // Prevents focus if tap on eye
  notifyListeners();
  }
 
@@ -29,6 +29,7 @@ class LoginViewModel extends BaseViewModel {
  TextEditingController _Passwordontroller = TextEditingController();
 
  TextEditingController get passwordcontroller => _Passwordontroller;
+
 
 
 
@@ -59,13 +60,21 @@ class LoginViewModel extends BaseViewModel {
   }
  }
 
-
- Future<void> login(BuildContext context) async{
+ Future<void> login(BuildContext context)async {
   if (formKey.currentState!.validate()) {
+
    navigationService.navigateTo(Routes.dashboardView);
 
   }
  }
+ // Future<void> navigateToUserDetails(User user) async {
+ //  await navigationService.replaceWith(
+ //   Routes.dashboardView,
+ //   arguments: DashboardViewArguments(user: user),
+ //  );
+ // }
+
+
 
  void signup() {
    navigationService.navigateTo(Routes.signupView);
@@ -73,5 +82,7 @@ class LoginViewModel extends BaseViewModel {
 
  }
 }
+
+
 
 

@@ -19,12 +19,19 @@ class SignupViewModel extends BaseViewModel {
    bool isChecked = false;
 
    final textFieldFocusNode = FocusNode();
-   bool obscured = false;
+   bool obscured = true;
+   bool cobscured = true;
 
    void toggleObscured() {
 
        obscured = !obscured;
        notifyListeners();
+
+   }
+   void ctoggleObscured() {
+
+     cobscured = !cobscured;
+     notifyListeners();
 
    }
 
@@ -72,6 +79,7 @@ class SignupViewModel extends BaseViewModel {
   }
 
   cpasswordvalidation(value){
+
     if (value != passwordontroller.text) {
       return 'password doesnot match';
     } else {
